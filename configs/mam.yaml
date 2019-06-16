@@ -1,0 +1,89 @@
+bases: '@mam/configs/bases_new.yaml'
+mutations:
+  - '@mam.tasks:mutations.sort_location'
+  - '@mam.tasks:mutations.clean_extensions'
+  - '@mam.tasks:mutations.merge_duplicates'
+  - '@mam.tasks:mutations.remove_mam'
+  - '@mam.tasks:mutations.remove_nosa'
+output: '@mam.tasks:output.default'
+files:
+  - 'additional.py'
+$global:
+  src:
+    all:
+      directory: 'src'
+      glob: './src/**/*'
+base:
+  python: #'3.7'
+tasks:
+#  - base: 'twistedchecker' # magic
+#  - base: 'python-taint' # magic
+#  - base: 'dodgy' # magic
+#  - base: 'coala' # glob support + magic
+#    deps:
+#      - 'coala-bears'
+#      - 'colorama<0.4,>=0.3'
+#    command: 'coala --json --bears BanditBear --files'
+
+#  - base: 'bellybutton' # glob support - exclude error
+#  - base: 'pychecker' # Py2.7 - Can't install
+#  - base: 'clonedigger' # Py2.7 - Outputs to HTML document
+#  - base: 'py-find-injection' # Py2.7 - doesn't support directories
+#  - base: 'mccabe' # doesn't support directories
+#  - base: 'gjslint' # No standalone
+#  - base: 'pyright' # npm package
+#  - base: 'pyre' # Windows not supported
+#  - base: 'pytype' # Windows not supported
+#  - base: 'radon-raw'
+#  - base: 'radon-hal'
+
+  - base: 'radon'
+  - base: 'radon-mi'
+  - base: 'pyroma'
+  - base: 'detect-secrets'
+  - base: 'pydiatra'
+  - base: 'pylama'
+  - base: 'prospector'
+  - base: 'bandit'
+  - base: 'frosted'
+#  - base: 'vulture'
+  - base: 'pydocstyle'
+  - base: 'pylint'
+  - base: 'mypy'
+  - base: 'pycodestyle'
+#  - base: 'pyflakes'
+#  - base: 'jedi' # Slow + buggy
+  - base: 'flake8'
+    extensions:
+      - 'cohesion'
+      # - 'flake8-adjustable-complexity'
+      - 'flake8-annotations-complexity'
+      - name: 'flake8-annotations-complexity'
+        deps:
+          - 'flake8-annotations-complexity'
+        command: 'flake8 --max-annotations-complexity=3'
+      - name: 'flake8-annotations-coverage'
+        deps:
+          - 'flake8-annotations-coverage'
+        command: 'flake8 --min-coverage-percent=75'
+      - 'flake8-blind-except'
+      - 'flake8-broken-line'
+      - 'flake8-bugbear'
+      - 'flake8-builtins'
+      - 'flake8-class-attributes-order'
+      - 'flake8-commas'
+      - 'flake8-comprehensions'
+      - 'flake8-import-order'
+      - 'flake8-logging-format'
+      - 'flake8-mutable'
+      - 'flake8-nitpick'
+      - 'flake8-pep3101'
+      - 'flake8-print'
+      - 'flake8-pyi'
+      - 'flake8-quotes'
+      #- 'flake8-return'  # buggy
+      #- 'flake8-spellcheck'  # buggy
+      - 'flake8-string-format'
+      - 'flake8-tidy-imports'
+      - 'flake8-variables-names'
+      - 'pep8-naming'
